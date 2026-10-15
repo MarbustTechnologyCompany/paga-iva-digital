@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Paga IVA Digital?</title>
+<meta name="description" content="Busca un proveedor digital extranjero y descubre al instante si tu banco te retiene el 15% de IVA al pagar con tarjeta de crédito o débito en Ecuador. Basado en el catastro público del SRI.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="¿Paga IVA Digital?">
+<meta property="og:description" content="Descubre si un proveedor digital extranjero te suma el 15% de IVA al pagar con tarjeta en Ecuador. Rápido, gratis y basado en el catastro del SRI.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  /* ======== Wise design system (library: wise.md) ======== */
+  :root{
+    --forest-ink:#163300; --lime:#9fe870; --spruce:#054d28; --linen:#e2f6d5;
+    --signal-blue:#0b4c72; --alarm:#cb272f; --charcoal:#454745; --obsidian:#0e0f0c;
+    --pebble:#868685; --slate:#6a6c6a; --fog:#e8ebe6; --paper:#ffffff;
+
+    /* semantic (light = Wise default) */
+    --canvas:var(--paper);
+    --surface:var(--paper);
+    --surface-soft:var(--fog);
+    --surface-tint:var(--linen);
+    --ink:var(--obsidian);
+    --text:var(--charcoal);
+    --muted:var(--slate);
+    --faint:var(--pebble);
+    --hairline:#dfe3dc;
+    --accent:var(--lime);
+    --accent-ink:var(--forest-ink);
+    --dark-bg:var(--forest-ink);
+    --dark-text:var(--paper);
+
+    --font:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    --r-card:10px; --r-input:10px; --r-large:28px; --r-pill:9999px;
+    --shadow-card:0 6px 20px rgba(0,0,0,.06);
+    --maxw:680px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --canvas:#0d2104; --surface:#163a06; --surface-soft:#1d4409; --surface-tint:#23340f;
+      --ink:#f3f8ee; --text:#dfe8d6; --muted:#9db58c; --faint:#7d9a6c; --hairline:#2a4f12;
+      --accent:var(--lime); --accent-ink:var(--forest-ink);
+      --dark-bg:#0a1a03; --dark-text:#f3f8ee;
+      --shadow-card:0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --canvas:#0d2104; --surface:#163a06; --surface-soft:#1d4409; --surface-tint:#23340f;
+    --ink:#f3f8ee; --text:#dfe8d6; --muted:#9db58c; --faint:#7d9a6c; --hairline:#2a4f12;
+    --accent:var(--lime); --accent-ink:var(--forest-ink);
+    --dark-bg:#0a1a03; --dark-text:#f3f8ee;
+    --shadow-card:0 6px 20px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--canvas); color:var(--text);
+    font-family:var(--font); font-size:18px; line-height:1.5;
+    letter-spacing:-.126px; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px 72px}
+
+  /* top row / theme */
+  .toprow{display:flex; justify-content:space-between; align-items:center; padding-top:18px}
+  .brand{display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--muted)}
+  .brand .dot{width:10px;height:10px;border-radius:var(--r-pill);background:var(--lime);border:1px solid var(--spruce)}
+  .themebtn{border:1px solid var(--hairline); background:var(--surface); color:var(--text); border-radius:var(--r-pill); height:38px; min-width:38px; padding:0 12px; cursor:pointer; font-size:14px; font-weight:500; display:inline-flex; align-items:center; gap:7px}
+  .themebtn:hover{border-color:var(--forest-ink)}
+
+  /* hero */
+  header.hero{padding:34px 0 6px}
+  h1{
+    font-weight:900; color:var(--ink); margin:0 0 14px;
+    font-size:clamp(40px,12vw,72px); line-height:.9; letter-spacing:-.04em; text-transform:uppercase;
+  }
+  h1 .q{color:var(--spruce)}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) h1 .q{color:var(--lime)} }
+  :root[data-theme="dark"] h1 .q{color:var(--lime)}
+  .sub{color:var(--text); font-size:19px; line-height:1.45; max-width:34ch}
+  .sub b{color:var(--ink); font-weight:600}
+
+  /* search */
+  .searchbox{position:sticky; top:10px; z-index:20; margin:24px 0 4px; padding:6px 0; background:linear-gradient(var(--canvas) 72%, transparent)}
+  .searchfield{
+    display:flex; align-items:center; gap:12px; background:var(--surface);
+    border:1.5px solid var(--pebble); border-radius:var(--r-input); padding:15px 18px;
+    transition:border-color .14s;
+  }
+  .searchfield:focus-within{border-color:var(--forest-ink)}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .searchfield:focus-within{border-color:var(--lime)} }
+  :root[data-theme="dark"] .searchfield:focus-within{border-color:var(--lime)}
+  .searchfield svg{flex:0 0 auto; color:var(--faint)}
+  #q{flex:1; border:0; outline:0; background:transparent; color:var(--ink); font-family:var(--font); font-size:18px; font-weight:500; min-width:0}
+  #q::placeholder{color:var(--faint); font-weight:400}
+  .clearbtn{border:0;background:transparent;color:var(--faint);font-size:22px;cursor:pointer;padding:0 2px;line-height:1;display:none}
+
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 2px}
+  .chip{border:1px solid var(--hairline); background:var(--surface); color:var(--text); border-radius:var(--r-pill); padding:8px 15px; font-size:14px; font-weight:500; cursor:pointer; transition:.12s; font-family:var(--font)}
+  .chip:hover{border-color:var(--forest-ink); background:var(--linen); color:var(--forest-ink)}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .chip:hover{background:var(--spruce); border-color:var(--lime); color:var(--lime)} }
+  :root[data-theme="dark"] .chip:hover{background:var(--spruce); border-color:var(--lime); color:var(--lime)}
+
+  .count{color:var(--faint); font-size:14px; margin:18px 2px 6px; min-height:18px; font-weight:500}
+  #results{display:flex; flex-direction:column; gap:12px}
+
+  /* result card */
+  .card{background:var(--surface); border:1px solid var(--hairline); border-radius:var(--r-card); padding:18px}
+  .card .top{display:flex; align-items:flex-start; justify-content:space-between; gap:12px}
+  .card .name{font-weight:700; font-size:20px; color:var(--ink); letter-spacing:-.01em; line-height:1.2}
+  .card .desc{color:var(--muted); font-size:15px; margin-top:4px; line-height:1.4}
+
+  .badge{flex:0 0 auto; display:inline-flex; align-items:center; gap:6px; font-weight:600; font-size:12.5px; padding:7px 13px; border-radius:var(--r-pill); white-space:nowrap; letter-spacing:0}
+  .badge.retiene{background:var(--forest-ink); color:var(--lime)}
+  .badge.exento{background:var(--lime); color:var(--forest-ink)}
+  .badge.comision{background:var(--linen); color:var(--spruce); border:1px solid #cdeab3}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .badge.comision{background:var(--surface-tint); color:var(--lime); border-color:var(--hairline)} }
+  :root[data-theme="dark"] .badge.comision{background:var(--surface-tint); color:var(--lime); border-color:var(--hairline)}
+
+  .verdict{margin-top:14px; font-size:15.5px; line-height:1.5; padding:13px 15px; border-radius:var(--r-input); background:var(--surface-soft); color:var(--text)}
+  .verdict b{color:var(--ink); font-weight:600}
+
+  .calc{margin-top:12px; display:flex; align-items:center; gap:9px; flex-wrap:wrap; font-size:15px; color:var(--muted)}
+  .calc input{width:116px; border:1.5px solid var(--pebble); background:var(--canvas); color:var(--ink); border-radius:var(--r-input); padding:9px 12px; font-size:16px; font-weight:500; outline:0; font-family:var(--font)}
+  .calc input:focus{border-color:var(--forest-ink)}
+  .calc .out{display:inline-flex; gap:6px; align-items:center}
+  .calc .out .pill{background:var(--linen); color:var(--forest-ink); font-weight:700; padding:4px 10px; border-radius:var(--r-pill)}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .calc .out .pill{background:var(--spruce); color:var(--lime)} }
+  :root[data-theme="dark"] .calc .out .pill{background:var(--spruce); color:var(--lime)}
+
+  .aliases{margin-top:12px; font-size:13px; color:var(--faint)}
+  .aliases code{background:var(--surface-soft); padding:2px 7px; border-radius:6px; font-size:12.5px; color:var(--muted); margin:0 4px 4px 0; display:inline-block; font-family:var(--font)}
+
+  .empty{text-align:center; color:var(--muted); padding:34px 10px; font-size:16px}
+  .empty .big{font-size:44px; display:block; margin-bottom:10px}
+  .empty .note{font-size:14px; color:var(--faint); margin:12px auto 0; max-width:42ch; line-height:1.5}
+
+  /* dark section (Wise inverted block) */
+  .darkcard{background:var(--dark-bg); color:var(--dark-text); border-radius:var(--r-large); padding:30px 26px; margin-top:46px}
+  .darkcard h2{font-weight:900; font-size:clamp(26px,7vw,34px); letter-spacing:-.03em; margin:0 0 16px; color:var(--lime); text-transform:uppercase; line-height:.95}
+  .darkcard p{margin:0 0 14px; color:#dfe8d6; font-size:16px; line-height:1.55}
+  .darkcard p:last-child{margin-bottom:0}
+  .darkcard b{color:#fff; font-weight:600}
+  .darkcard .hl{color:var(--lime); font-weight:700}
+  .example{display:flex; align-items:center; gap:10px; flex-wrap:wrap; background:rgba(159,232,112,.1); border:1px solid rgba(159,232,112,.28); border-radius:var(--r-input); padding:13px 15px; margin:16px 0; font-size:16px; color:#eaf6df}
+  .example .amt{background:var(--lime); color:var(--forest-ink); font-weight:700; padding:3px 10px; border-radius:var(--r-pill)}
+
+  /* legend */
+  section.legendsec{margin-top:14px}
+  .infocard{background:var(--surface); border:1px solid var(--hairline); border-radius:var(--r-card); padding:20px}
+  .infocard h3{margin:0 0 14px; font-size:17px; color:var(--ink); font-weight:700}
+  .legend{display:grid; gap:14px}
+  .legend .row{display:flex; gap:12px; align-items:flex-start; font-size:15px; color:var(--muted); line-height:1.45}
+  .legend .row .badge{margin-top:1px}
+
+  .disclaimer{background:var(--surface-tint); border:1px solid #cdeab3; color:var(--spruce); border-radius:var(--r-card); padding:15px 17px; font-size:14px; line-height:1.55; margin-top:12px}
+  .disclaimer b{color:var(--forest-ink); font-weight:700}
+  .disclaimer a{color:var(--forest-ink); font-weight:600}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .disclaimer{background:var(--surface-tint); border-color:var(--hairline); color:#cfe3bd} :root:not([data-theme="light"]) .disclaimer b,:root:not([data-theme="light"]) .disclaimer a{color:var(--lime)} }
+  :root[data-theme="dark"] .disclaimer{background:var(--surface-tint); border-color:var(--hairline); color:#cfe3bd}
+  :root[data-theme="dark"] .disclaimer b,:root[data-theme="dark"] .disclaimer a{color:var(--lime)}
+
+  footer{margin-top:40px; text-align:center; color:var(--faint); font-size:13.5px; line-height:1.8}
+  footer a{color:var(--forest-ink); text-decoration:none; font-weight:500}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) footer a{color:var(--lime)} }
+  :root[data-theme="dark"] footer a{color:var(--lime)}
+  footer a:hover{text-decoration:underline}
+
+  mark{background:var(--lime); color:var(--forest-ink); border-radius:3px; padding:0 2px}
+  .skeleton{height:92px;border-radius:var(--r-card);border:1px solid var(--hairline);background:linear-gradient(90deg,var(--surface-soft),var(--surface),var(--surface-soft));background-size:200% 100%;animation:sh 1.2s infinite}
+  @keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+  section.legendsec h2, .sec-title{font-weight:900; text-transform:uppercase; letter-spacing:-.03em; color:var(--ink); font-size:22px; margin:0 0 14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="toprow">
+    <span class="brand"><span class="dot"></span> Marbust · Herramienta abierta</span>
+    <button class="themebtn" id="theme" aria-label="Cambiar tema">🌓 Tema</button>
+  </div>
+
+  <header class="hero">
+    <h1>¿Paga IVA <span class="q">Digital?</span></h1>
+    <p class="sub">Escribe un proveedor digital extranjero y descubre si, al pagarle con <b>tarjeta</b>, tu banco te retiene el <b>15% de IVA</b> adicional en Ecuador.</p>
+  </header>
+
+  <div class="searchbox">
+    <div class="searchfield">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="q" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Netflix, Facebook Ads, Spotify, AliExpress…" aria-label="Buscar proveedor">
+      <button class="clearbtn" id="clear" aria-label="Limpiar">×</button>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="count" id="count"></div>
+  <div id="results"></div>
+
+  <div class="darkcard">
+    <h2>Cómo funciona</h2>
+    <p>Desde 2020, la ley ecuatoriana grava con IVA los <b>servicios digitales importados</b>. Cuando le pagas a un proveedor <b>no residente</b> con tarjeta de crédito o débito, y ese proveedor figura en el <span class="hl">catastro del SRI</span>, tu banco está obligado por ley a <b>retener el 15% del IVA</b> además del valor del servicio.</p>
+    <div class="example">Pagas <span class="amt">$10</span> de publicidad → el banco suma <span class="amt">$1,50</span> de IVA → debitan <span class="amt">$11,50</span></div>
+    <p>Esta página toma ese catastro público y lo hace <span class="hl">fácil y rápido de consultar</span>: así conoces el costo real <b>antes</b> de pagar y no te sorprende en el estado de cuenta.</p>
+  </div>
+
+  <section class="legendsec" style="margin-top:14px">
+    <div class="infocard">
+      <h3>Qué significa cada resultado</h3>
+      <div class="legend">
+        <div class="row"><span class="badge retiene">➕ 15% IVA</span><span>Proveedor no residente en el catastro: al pagar con tarjeta, el banco retiene el 15% de IVA sobre el total.</span></div>
+        <div class="row"><span class="badge comision">15% solo comisión</span><span>Plataforma intermediaria (delivery, marketplace): el 15% se retiene únicamente sobre su comisión, no sobre todo el pago.</span></div>
+        <div class="row"><span class="badge exento">✓ Sin IVA extra</span><span>El proveedor está domiciliado en Ecuador o registrado en el SRI: él mismo factura/declara el IVA, el banco no retiene.</span></div>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <b>Aviso.</b> Información referencial basada en el catastro público del SRI. <b>No es asesoría tributaria</b> ni una invitación a dejar de pagar impuestos: su único fin es que conozcas de antemano el IVA que la ley manda retener. El catastro se actualiza cada trimestre (enero, abril, julio, octubre); ante cualquier duda verifica en el <a href="https://www.sri.gob.ec/catastros" target="_blank" rel="noopener">portal del SRI</a>.
+    </div>
+  </section>
+
+  <footer>
+    <div>Fuente: <a href="https://www.sri.gob.ec/catastros" target="_blank" rel="noopener">Catastro de Prestadores de Servicios Digitales No Residentes — SRI</a></div>
+    <div id="meta"></div>
+    <div style="margin-top:8px">Proyecto abierto de <a href="https://marbust.com" target="_blank" rel="noopener">Marbust Technology Company</a> · <a id="repo" href="https://github.com/MarbustTechnologyCompany/paga-iva-digital" target="_blank" rel="noopener">Código en GitHub</a></div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var IVA = 15;
+  var DATA = null, INDEX = [];
+  var $q = document.getElementById('q');
+  var $results = document.getElementById('results');
+  var $count = document.getElementById('count');
+  var $clear = document.getElementById('clear');
+
+  var $theme = document.getElementById('theme');
+  try{ var saved = localStorage.getItem('piva-theme'); if(saved) document.documentElement.setAttribute('data-theme', saved); }catch(e){}
+  $theme.addEventListener('click', function(){
+    var cur = document.documentElement.getAttribute('data-theme');
+    var isDark = cur ? cur==='dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try{ localStorage.setItem('piva-theme', next); }catch(e){}
+  });
+
+  function fold(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+
+  function verdict(p){
+    if(p.e) return {cls:'exento', label:'✓ Sin IVA extra', text:'Este proveedor está <b>domiciliado en Ecuador o es establecimiento permanente</b>, así que factura el IVA directamente. <b>El banco no te retiene</b> IVA adicional al pagar con tarjeta.'};
+    if(p.s) return {cls:'exento', label:'✓ Sin IVA extra', text:'Este proveedor está <b>registrado en el SRI</b> y declara el IVA por su cuenta. <b>El banco no te retiene</b> IVA adicional al pagar con tarjeta.'};
+    if(p.c) return {cls:'comision', label:'15% solo comisión', text:'Es una <b>plataforma intermediaria</b>. El banco retiene el '+IVA+'% de IVA <b>solo sobre la comisión</b> que cobra la plataforma, no sobre el total de tu pago.'};
+    return {cls:'retiene', label:'➕ '+IVA+'% IVA', text:'Si pagas con <b>tarjeta de crédito o débito</b>, tu banco te retiene el <b>'+IVA+'% de IVA</b> sobre el total, además del precio del servicio.'};
+  }
+
+  function esc(s){ return (s||'').replace(/[&<>"]/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function hi(s, q){
+    if(!q) return esc(s);
+    var fs = fold(s), fq = fold(q), i = fs.indexOf(fq);
+    if(i<0) return esc(s);
+    return esc(s.slice(0,i))+'<mark>'+esc(s.slice(i,i+q.length))+'</mark>'+esc(s.slice(i+q.length));
+  }
+
+  function build(){
+    INDEX = DATA.p.map(function(p){
+      var hay = fold(p.n+' '+p.a.join(' ')+' '+DATA.d[p.d]);
+      return {p:p, hay:hay, fn:fold(p.n), fa:p.a.map(fold)};
+    });
+  }
+
+  function search(q){
+    var fq = fold(q.trim());
+    if(!fq) return [];
+    var exact=[], starts=[], incl=[], desc=[];
+    for(var i=0;i<INDEX.length;i++){
+      var it = INDEX[i];
+      if(it.fn===fq || it.fa.indexOf(fq)>=0){ exact.push(it); continue; }
+      var hitStart = it.fn.indexOf(fq)===0 || it.fa.some(function(a){return a.indexOf(fq)===0;});
+      if(hitStart){ starts.push(it); continue; }
+      var inName = it.fn.indexOf(fq)>=0 || it.fa.some(function(a){return a.indexOf(fq)>=0;});
+      if(inName){ incl.push(it); continue; }
+      if(it.hay.indexOf(fq)>=0){ desc.push(it); }
+    }
+    var byname = function(a,b){ return a.fn<b.fn?-1:1; };
+    exact.sort(byname); starts.sort(byname); incl.sort(byname); desc.sort(byname);
+    return exact.concat(starts, incl, desc);
+  }
+
+  function calcHtml(v){
+    if(v.cls!=='retiene') return '';
+    return '<div class="calc"><label>Si pagas $</label>'+
+      '<input type="number" min="0" step="0.01" inputmode="decimal" class="amt" placeholder="10">'+
+      '<span class="out"></span></div>';
+  }
+
+  function render(list, q){
+    if(!q){
+      $count.textContent='';
+      $results.innerHTML='<div class="empty"><span class="big">🔎</span>Escribe el nombre de un proveedor tal como aparece en tu estado de cuenta o como lo conoces.</div>';
+      return;
+    }
+    if(!list.length){
+      $count.textContent='';
+      $results.innerHTML='<div class="empty"><span class="big">🤔</span>No está en el catastro vigente del SRI.'+
+        '<div class="note">Que no aparezca puede significar que no es un servicio digital extranjero gravado, o que aún no está en esta versión del catastro (se actualiza cada trimestre). Esto no es asesoría tributaria.</div></div>';
+      return;
+    }
+    var shown = list.slice(0, 40);
+    $count.textContent = list.length===1 ? '1 coincidencia' : (list.length>40 ? 'Mostrando 40 de '+list.length+' coincidencias' : list.length+' coincidencias');
+    var html='';
+    for(var i=0;i<shown.length;i++){
+      var p = shown[i].p, v = verdict(p);
+      var aliasHtml = p.a.length>1 ? '<div class="aliases">Aparece en tu estado de cuenta como: '+p.a.map(function(a){return '<code>'+hi(a,q)+'</code>';}).join('')+'</div>' : '';
+      html += '<div class="card">'+
+        '<div class="top"><div><div class="name">'+hi(p.n,q)+'</div><div class="desc">'+esc(DATA.d[p.d])+'</div></div>'+
+        '<span class="badge '+v.cls+'">'+v.label+'</span></div>'+
+        '<div class="verdict">'+v.text+'</div>'+
+        calcHtml(v)+ aliasHtml +'</div>';
+    }
+    $results.innerHTML = html;
+    var cards = $results.querySelectorAll('.card');
+    for(var j=0;j<shown.length;j++){
+      (function(card){
+        var amt = card.querySelector('.calc .amt'); if(!amt) return;
+        var out = card.querySelector('.out');
+        amt.addEventListener('input', function(){
+          var x = parseFloat(amt.value);
+          if(isNaN(x) || x<0){ out.innerHTML=''; return; }
+          var iva = x*IVA/100, tot = x+iva;
+          out.innerHTML = '→ IVA <span class="pill">$'+iva.toFixed(2)+'</span> · total <span class="pill">$'+tot.toFixed(2)+'</span>';
+        });
+      })(cards[j]);
+    }
+  }
+
+  var tmr=null;
+  function onInput(){
+    $clear.style.display = $q.value ? 'block' : 'none';
+    clearTimeout(tmr);
+    tmr = setTimeout(function(){ render(search($q.value), $q.value.trim()); }, 60);
+  }
+  $q.addEventListener('input', onInput);
+  $clear.addEventListener('click', function(){ $q.value=''; onInput(); $q.focus(); });
+
+  var EX = ['Netflix','Facebook Ads','Spotify','AliExpress','Temu','ChatGPT','Steam','Amazon'];
+  var $chips = document.getElementById('chips');
+  EX.forEach(function(x){
+    var b=document.createElement('button'); b.className='chip'; b.textContent=x;
+    b.addEventListener('click', function(){ $q.value=x; onInput(); $q.focus(); window.scrollTo({top:0,behavior:'smooth'}); });
+    $chips.appendChild(b);
+  });
+
+  $results.innerHTML='<div class="skeleton"></div><div class="skeleton"></div>';
+  fetch('data/providers.json').then(function(r){ return r.json(); }).then(function(d){
+    DATA=d; build();
+    var m=d.meta||{};
+    document.getElementById('meta').textContent = (m.totalProveedores? m.totalProveedores.toLocaleString('es-EC')+' proveedores · ':'')+(m.snapshot? 'actualizado al '+m.snapshot : '');
+    IVA = m.ivaRate || 15;
+    render([], '');
+    $q.focus();
+    if(location.hash.length>2){ $q.value=decodeURIComponent(location.hash.slice(2)); onInput(); }
+  }).catch(function(){
+    $results.innerHTML='<div class="empty"><span class="big">⚠️</span>No se pudo cargar el catastro. Recarga la página.</div>';
+  });
+
+  $q.addEventListener('change', function(){
+    try{ history.replaceState(null,'', $q.value? '#/'+encodeURIComponent($q.value) : location.pathname); }catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

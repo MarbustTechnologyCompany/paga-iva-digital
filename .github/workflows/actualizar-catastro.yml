@@ -1,0 +1,72 @@
+name: Actualizar catastro SRI
+
+# Mantiene data/providers.json al dia con el catastro del SRI.
+# El SRI actualiza el catastro cada trimestre (hasta el 15 de enero/abril/julio/octubre)
+# y entra en vigencia el primer dia habil del mes siguiente, por eso se corre a inicios
+# de febrero/mayo/agosto/noviembre. Tambien se puede disparar a mano.
+on:
+  schedule:
+    - cron: '0 12 3 2,5,8,11 *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: actualizar-catastro
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias
+        run: pip install --quiet openpyxl
+
+      - name: Descargar el catastro vigente del SRI
+        run: |
+          set -euo pipefail
+          PAGE="https://www.sri.gob.ec/catastros"
+          FALLBACK="https://www.sri.gob.ec/o/sri-portlet-biblioteca-alfresco-internet/descargar/bce0057f-3e09-4c12-aaf1-878124f54fad/Catastro%20de%20Prestadores%20de%20Servicios%20Digitales%20No%20Residentes.xlsx"
+          # Busca el enlace vigente del XLS en la pagina (resiste cambios de UUID); usa el fijo como respaldo.
+          URL=$(curl -sL --max-time 60 -A "Mozilla/5.0" "$PAGE" \
+            | grep -oiE 'https://[^"]*descargar/[^"]*Servicios%20Digitales[^"]*\.xlsx' | head -1 || true)
+          if [ -z "$URL" ]; then
+            echo "No se hallo el enlace en la pagina; uso el respaldo."
+            URL="$FALLBACK"
+          fi
+          echo "Descargando: $URL"
+          curl -sL --max-time 120 -A "Mozilla/5.0" -o data/catastro-sri.xlsx "$URL"
+          python - <<'PY'
+          import openpyxl
+          wb = openpyxl.load_workbook('data/catastro-sri.xlsx', read_only=True)
+          ws = wb.worksheets[0]
+          hdr = next(ws.iter_rows(values_only=True))
+          assert str(hdr[0]).strip().upper() == 'PROVEEDOR', f'Encabezado inesperado: {hdr}'
+          print('XLS valido, filas:', ws.max_row)
+          PY
+
+      - name: Regenerar providers.json
+        run: python scripts/generar-datos.py data/catastro-sri.xlsx data/providers.json
+
+      - name: Commit si cambio
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/providers.json data/catastro-sri.xlsx; then
+            echo "Sin cambios en el catastro."
+          else
+            git add data/providers.json data/catastro-sri.xlsx
+            git commit -m "datos: actualiza catastro SRI (auto)"
+            git push
+            echo "Catastro actualizado y publicado."
+          fi
