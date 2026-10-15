@@ -192,7 +192,7 @@
   <div class="searchbox">
     <div class="searchfield">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="q" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Netflix, Facebook Ads, Spotify, AliExpress…" aria-label="Buscar proveedor">
+      <input id="q" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Netflix, Facebook Ads, Spotify, ChatGPT…" aria-label="Buscar proveedor">
       <button class="clearbtn" id="clear" aria-label="Limpiar">×</button>
     </div>
     <div class="chips" id="chips"></div>
@@ -276,19 +276,24 @@
   function search(q){
     var fq = fold(q.trim());
     if(!fq) return [];
-    var exact=[], starts=[], incl=[], desc=[];
+    var exact=[], starts=[], prefixq=[], incl=[], desc=[];
+    // El catastro usa descriptores truncados del estado de cuenta (FACEB = Facebook,
+    // METAPLATFOR = Meta). Por eso también se empareja cuando el nombre del catastro es
+    // prefijo de lo que el usuario escribe ("facebook" -> "FACEB"), con guardia len>=4.
+    var prefixHit = function(s){ return s.length>=4 && fq.indexOf(s)===0; };
     for(var i=0;i<INDEX.length;i++){
       var it = INDEX[i];
       if(it.fn===fq || it.fa.indexOf(fq)>=0){ exact.push(it); continue; }
       var hitStart = it.fn.indexOf(fq)===0 || it.fa.some(function(a){return a.indexOf(fq)===0;});
       if(hitStart){ starts.push(it); continue; }
+      if(prefixHit(it.fn) || it.fa.some(prefixHit)){ prefixq.push(it); continue; }
       var inName = it.fn.indexOf(fq)>=0 || it.fa.some(function(a){return a.indexOf(fq)>=0;});
       if(inName){ incl.push(it); continue; }
       if(it.hay.indexOf(fq)>=0){ desc.push(it); }
     }
     var byname = function(a,b){ return a.fn<b.fn?-1:1; };
-    exact.sort(byname); starts.sort(byname); incl.sort(byname); desc.sort(byname);
-    return exact.concat(starts, incl, desc);
+    exact.sort(byname); starts.sort(byname); prefixq.sort(byname); incl.sort(byname); desc.sort(byname);
+    return exact.concat(starts, prefixq, incl, desc);
   }
 
   function calcHtml(v){
@@ -347,7 +352,7 @@
   $q.addEventListener('input', onInput);
   $clear.addEventListener('click', function(){ $q.value=''; onInput(); $q.focus(); });
 
-  var EX = ['Netflix','Facebook Ads','Spotify','AliExpress','Temu','ChatGPT','Steam','Amazon'];
+  var EX = ['Netflix','Facebook Ads','Spotify','ChatGPT','Canva','Steam','Disney','Starlink'];
   var $chips = document.getElementById('chips');
   EX.forEach(function(x){
     var b=document.createElement('button'); b.className='chip'; b.textContent=x;
