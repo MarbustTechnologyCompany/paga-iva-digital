@@ -54,13 +54,26 @@ body{
 }
 .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px 72px}
 
-/* top row / theme */
-.toprow{display:flex; justify-content:space-between; align-items:center; padding-top:18px; gap:12px}
-.brand{display:inline-flex; align-items:center; gap:10px; font-size:13px; font-weight:700; letter-spacing:.01em; color:var(--text); text-decoration:none}
-.brand img{width:30px; height:30px; display:block}
-.brand .muted{font-weight:500; color:var(--muted); font-size:12px}
-.themebtn{border:1px solid var(--hairline); background:var(--surface); color:var(--text); border-radius:var(--r-pill); height:38px; min-width:38px; padding:0 12px; cursor:pointer; font-size:14px; font-weight:500; display:inline-flex; align-items:center; gap:7px}
+/* site header (barra superior, full-width, sticky) */
+.site-header{position:sticky; top:0; z-index:30; background:color-mix(in srgb,var(--canvas) 85%, transparent); -webkit-backdrop-filter:saturate(180%) blur(10px); backdrop-filter:saturate(180%) blur(10px); border-bottom:1px solid var(--hairline)}
+.site-header .inner{max-width:var(--maxw); margin:0 auto; padding:9px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px}
+.logo{display:inline-flex; align-items:center; gap:11px; text-decoration:none}
+.logo img{width:34px; height:34px; display:block; border-radius:8px}
+.wordmark{display:flex; flex-direction:column; line-height:1.05; font-weight:800; color:var(--ink); font-size:15px; letter-spacing:-.01em}
+.wordmark .tag{font-weight:600; color:var(--brand); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; margin-top:2px}
+.nav{display:flex; align-items:center; gap:3px}
+.nav a.navlink{padding:8px 11px; border-radius:var(--r-pill); color:var(--muted); font-weight:600; font-size:14px; text-decoration:none; white-space:nowrap}
+.nav a.navlink:hover{color:var(--brand-ink); background:var(--surface-tint)}
+.iconbtn{display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; padding:0; border-radius:var(--r-pill); border:1px solid transparent; background:transparent; color:var(--muted); cursor:pointer}
+.iconbtn:hover{color:var(--brand-ink); background:var(--surface-tint)}
+.themebtn{border:1px solid var(--hairline); background:var(--surface); color:var(--text)}
 .themebtn:hover{border-color:var(--brand)}
+@media (max-width:460px){
+  .wordmark .tag{display:none}
+  .nav a.navlink{padding:7px 8px; font-size:13px}
+  .site-header .inner{padding:8px 16px}
+  .nav{gap:1px}
+}
 
 /* hero */
 header.hero{padding:30px 0 6px}
@@ -73,7 +86,7 @@ h1 .q{color:var(--accent)}
 .sub b{color:var(--ink); font-weight:600}
 
 /* search */
-.searchbox{position:sticky; top:10px; z-index:20; margin:24px 0 4px; padding:6px 0; background:linear-gradient(var(--canvas) 72%, transparent)}
+.searchbox{position:sticky; top:55px; z-index:20; margin:18px 0 4px; padding:8px 0 10px; background:var(--canvas); box-shadow:0 10px 12px -10px rgba(16,50,79,.18)}
 .searchfield{
   display:flex; align-items:center; gap:12px; background:var(--surface);
   border:1.5px solid var(--faint); border-radius:var(--r-input); padding:15px 18px;
@@ -154,7 +167,7 @@ mark{background:var(--surface-tint); color:var(--brand-ink); border-radius:3px; 
 @keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
 /* páginas de contenido (acerca, privacidad, términos, equipo) */
-.page{padding-top:8px}
+.page{padding-top:18px}
 .backlink{display:inline-flex; align-items:center; gap:6px; color:var(--link); text-decoration:none; font-weight:600; font-size:14px; margin:6px 0 18px}
 .backlink:hover{text-decoration:underline}
 .page h1.doc{font-size:clamp(30px,8vw,46px); text-transform:none; letter-spacing:-.03em; line-height:1; margin-bottom:8px}
