@@ -74,6 +74,10 @@ body{
   .site-header .inner{padding:8px 16px}
   .nav{gap:1px}
 }
+/* móvil muy estrecho: solo iconos en el header (el nav completo sigue en el footer) */
+@media (max-width:374px){
+  .nav a.navlink{display:none}
+}
 
 /* hero */
 header.hero{padding:30px 0 6px}
