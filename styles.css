@@ -6,9 +6,10 @@
   /* marca */
   --brand:#388DCE; --brand-ink:#1f6fb0; --accent:#24B4ED; --navy:#0c2b4a;
   /* texto / superficies */
-  --ink:#10324f; --text:#323232; --muted:#5f6b78; --faint:#94a3b2;
+  --ink:#10324f; --text:#323232; --muted:#5f6b78; --faint:#79838f;
   --canvas:#ffffff; --surface:#ffffff; --surface-soft:#eef3f9; --surface-tint:#dbeefb;
   --hairline:#dbe3ec;
+  /* --faint: iconos/bordes/placeholder-off; cumple 3:1 no-texto */
   /* estados (triada semántica, pills suaves) */
   --amber-bg:#fdecc8; --amber-ink:#8a5200; --amber-bd:#f2d294;
   --green-bg:#dcf5e5; --green-ink:#167a46; --green-bd:#b4e5c7;
@@ -81,7 +82,7 @@ h1 .q{color:var(--accent)}
 .searchfield:focus-within{border-color:var(--brand)}
 .searchfield svg{flex:0 0 auto; color:var(--faint)}
 #q{flex:1; border:0; outline:0; background:transparent; color:var(--ink); font-family:var(--font); font-size:18px; font-weight:500; min-width:0}
-#q::placeholder{color:var(--faint); font-weight:400}
+#q::placeholder{color:var(--muted); font-weight:400}
 .clearbtn{border:0;background:transparent;color:var(--faint);font-size:22px;cursor:pointer;padding:0 2px;line-height:1;display:none}
 
 .chips{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 2px}
