@@ -33,7 +33,17 @@ def display_name(aliases):
     return sorted(aliases, key=lambda a: (-score(a), sum(c.isupper() for c in a), len(a), a))[0]
 
 
+def load_nice_names(out):
+    """Mapa opcional {normKey: 'Nombre bonito'} junto al JSON de salida (nombres-bonitos.json)."""
+    p = os.path.join(os.path.dirname(os.path.abspath(out)), 'nombres-bonitos.json')
+    if not os.path.exists(p):
+        return {}
+    raw = json.load(open(p, encoding='utf-8'))
+    return {k: v for k, v in raw.items() if not k.startswith('_')}
+
+
 def main(path, out):
+    nice = load_nice_names(out)
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
     ws = wb.worksheets[0]
     data = list(ws.iter_rows(values_only=True))[1:]  # fila 0 = encabezados
@@ -67,7 +77,7 @@ def main(path, out):
     provs = []
     for (_nk, _desc), g in groups.items():
         provs.append({
-            'n': display_name(g['aliases']),
+            'n': nice.get(_nk) or display_name(g['aliases']),
             'a': g['aliases'],
             'd': di(g['desc']),
             'c': g['c'], 'e': g['e'], 's': g['s'],

@@ -1,0 +1,15 @@
+{
+  "_comentario": "Nombres legibles SOLO para el título de la tarjeta, para marcas conocidas que el SRI guarda truncadas o en mayúsculas (ej. el estado de cuenta llega como FACEB). La clave es el nombre normalizado (mayúsculas sin espacios ni símbolos). NO cambia los datos ni la búsqueda: el descriptor real del SRI se sigue mostrando en 'aparece en tu estado de cuenta como'. Agregar aquí una marca es seguro y reversible.",
+  "FACEB": "Facebook",
+  "METAPLATFOR": "Meta Platforms",
+  "CHATGPT": "ChatGPT",
+  "OPENAI": "OpenAI",
+  "CLAUDEAI": "Claude",
+  "DISNEYPLUS": "Disney+",
+  "HBOMAX": "HBO Max",
+  "MAXCOM": "Max (HBO)",
+  "EPICGAMES": "Epic Games",
+  "APPLECOMBILL": "Apple",
+  "TIKTOK": "TikTok",
+  "CANVA": "Canva"
+}
