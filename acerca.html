@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acerca de · ¿Paga IVA Digital?</title>
+<meta name="description" content="Qué es ¿Paga IVA Digital?, por qué existe y cómo funciona. Herramienta abierta basada en el catastro del SRI.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+<script src="theme.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="toprow">
+    <a class="brand" href="./" aria-label="Marbust Technology Company"><img src="assets/marbust-mb.png" alt="Marbust" width="30" height="30"><span>Marbust<span class="muted">&nbsp;· Herramienta abierta</span></span></a>
+    <button class="themebtn" id="theme" aria-label="Cambiar tema">🌓 Tema</button>
+  </div>
+  <main class="page">
+    <a class="backlink" href="./">← Volver al buscador</a>
+    <h1 class="doc">Acerca de</h1>
+    <p class="lead">Una forma fácil y rápida de saber si pagar con tarjeta a un proveedor digital extranjero te suma el 15% de IVA en Ecuador.</p>
+    <div class="prose">
+      <h2>Qué es</h2>
+      <p><b>¿Paga IVA Digital?</b> es un buscador gratuito y de código abierto. Escribes el nombre de un proveedor digital extranjero —tal como aparece en tu estado de cuenta o como lo conoces— y te dice al instante si, al pagarle con tarjeta de crédito o débito, tu banco está obligado a retenerte el <b>15% de IVA</b> además del precio.</p>
+      <h2>Por qué existe</h2>
+      <p>Desde 2020 la ley ecuatoriana grava con IVA los <b>servicios digitales importados</b>. Cuando le pagas con tarjeta a un proveedor <b>no residente</b> que figura en el catastro del SRI, el emisor de tu tarjeta retiene el 15% del IVA. Esa información es pública, pero consultarla implica descargar un archivo de miles de filas y buscar a mano. Esta herramienta lo hace por ti: conoces el costo real <b>antes</b> de pagar y no te sorprende en el estado de cuenta.</p>
+      <h2>Cómo funciona</h2>
+      <p>El sitio es 100% estático (sin servidor ni base de datos). Toma el catastro público del SRI, lo procesa a un archivo de datos y lo busca en tu propio navegador. Cada proveedor se clasifica en:</p>
+      <ul>
+        <li><b>➕ 15% IVA</b> — proveedor no residente en el catastro: el banco retiene el 15% sobre el total.</li>
+        <li><b>15% solo comisión</b> — plataforma intermediaria (delivery, marketplace): se retiene solo sobre su comisión.</li>
+        <li><b>✓ Sin IVA extra</b> — proveedor domiciliado en Ecuador o registrado en el SRI: factura/declara el IVA él mismo, el banco no retiene.</li>
+      </ul>
+      <h2>Abierto</h2>
+      <p>El código es abierto (licencia MIT) y está en <a href="https://github.com/MarbustTechnologyCompany/paga-iva-digital" target="_blank" rel="noopener">GitHub</a>. Los datos se actualizan automáticamente cada trimestre desde el <a href="https://www.sri.gob.ec/catastros" target="_blank" rel="noopener">SRI</a>.</p>
+      <p class="muted">Información referencial. No es asesoría tributaria ni una invitación a dejar de pagar impuestos: su único fin es informar el IVA que la ley manda retener.</p>
+    </div>
+  </main>
+  <footer>
+    <nav class="footer-nav">
+      <a href="acerca.html">Acerca de</a><span class="footer-sep">·</span>
+      <a href="privacidad.html">Privacidad</a><span class="footer-sep">·</span>
+      <a href="terminos.html">Términos</a><span class="footer-sep">·</span>
+      <a href="equipo.html">Equipo</a>
+    </nav>
+    <div>Fuente: <a href="https://www.sri.gob.ec/catastros" target="_blank" rel="noopener">Catastro de Prestadores de Servicios Digitales No Residentes — SRI</a></div>
+    <div class="footer-credit">Proyecto abierto de <a href="https://marbust.com" target="_blank" rel="noopener">Marbust Technology Company</a> · <a href="https://github.com/MarbustTechnologyCompany/paga-iva-digital" target="_blank" rel="noopener">Código en GitHub</a></div>
+    <div class="copyright">© 2026 Marbust Technology Company · All Rights Reserved</div>
+  </footer>
+</div>
+</body>
+</html>
